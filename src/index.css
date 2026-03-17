@@ -1,0 +1,237 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Beautiful Food Expiry Tracker Design System
+All colors are HSL for perfect theming support
+*/
+
+@layer base {
+  :root {
+    /* Beautiful gradient backgrounds */
+    --background: 40 100% 99%;
+    --background-secondary: 45 100% 96%;
+    --foreground: 222 84% 4.9%;
+
+    /* Fresh, food-themed color palette */
+    --card: 0 0% 100%;
+    --card-foreground: 222 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 84% 4.9%;
+
+    /* Fresh green primary inspired by herbs and freshness */
+    --primary: 142 76% 36%;
+    --primary-light: 142 52% 58%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Warm secondary for warmth and comfort */
+    --secondary: 25 95% 53%;
+    --secondary-light: 25 95% 73%;
+    --secondary-foreground: 0 0% 100%;
+
+    /* Soft muted tones */
+    --muted: 60 4.8% 95.9%;
+    --muted-foreground: 25 5.3% 44.7%;
+
+    /* Energetic accent color */
+    --accent: 204 94% 94%;
+    --accent-foreground: 204 94% 14%;
+
+    /* Warning colors for expiring items */
+    --warning: 45 93% 47%;
+    --warning-light: 45 93% 77%;
+    --warning-foreground: 0 0% 100%;
+
+    /* Danger for expired items */
+    --destructive: 0 84% 60%;
+    --destructive-light: 0 84% 80%;
+    --destructive-foreground: 210 40% 98%;
+
+    /* Success for fresh items */
+    --success: 142 71% 45%;
+    --success-light: 142 71% 75%;
+    --success-foreground: 0 0% 100%;
+
+    --border: 60 4.8% 91.9%;
+    --input: 60 4.8% 95.9%;
+    --ring: 142 76% 36%;
+
+    /* Beautiful gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(142 76% 36%) 0%, hsl(142 52% 58%) 100%);
+    --gradient-secondary: linear-gradient(135deg, hsl(25 95% 53%) 0%, hsl(25 95% 73%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(142 76% 36%) 0%, hsl(25 95% 53%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%) 0%, hsl(60 4.8% 97%) 100%);
+
+    /* Shadows for depth */
+    --shadow-soft: 0 2px 8px hsl(222 84% 4.9% / 0.08);
+    --shadow-medium: 0 8px 24px hsl(222 84% 4.9% / 0.12);
+    --shadow-large: 0 16px 40px hsl(222 84% 4.9% / 0.16);
+    --shadow-glow: 0 0 32px hsl(142 76% 36% / 0.3);
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 15 23% 4%;
+    --background-secondary: 15 25% 6%;
+    --foreground: 60 9% 98%;
+
+    --card: 15 23% 6%;
+    --card-foreground: 60 9% 98%;
+
+    --popover: 15 23% 6%;
+    --popover-foreground: 60 9% 98%;
+
+    /* Darker theme with same beautiful colors */
+    --primary: 142 52% 58%;
+    --primary-light: 142 52% 78%;
+    --primary-foreground: 15 23% 4%;
+
+    --secondary: 25 95% 73%;
+    --secondary-light: 25 95% 83%;
+    --secondary-foreground: 15 23% 4%;
+
+    --muted: 15 25% 15%;
+    --muted-foreground: 60 5% 64%;
+
+    --accent: 15 25% 15%;
+    --accent-foreground: 204 94% 84%;
+
+    --warning: 45 93% 67%;
+    --warning-light: 45 93% 77%;
+    --destructive: 0 84% 70%;
+    --destructive-light: 0 84% 80%;
+    --success: 142 71% 65%;
+    --success-light: 142 71% 75%;
+
+    --border: 15 25% 18%;
+    --input: 15 25% 15%;
+    --ring: 142 52% 58%;
+
+    /* Dark gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(142 52% 58%) 0%, hsl(142 52% 78%) 100%);
+    --gradient-secondary: linear-gradient(135deg, hsl(25 95% 73%) 0%, hsl(25 95% 83%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(142 52% 58%) 0%, hsl(25 95% 73%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(15 23% 6%) 0%, hsl(15 25% 8%) 100%);
+
+    --sidebar-background: 15 23% 4%;
+    --sidebar-foreground: 60 9% 98%;
+    --sidebar-primary: 142 52% 58%;
+    --sidebar-primary-foreground: 15 23% 4%;
+    --sidebar-accent: 15 25% 15%;
+    --sidebar-accent-foreground: 60 9% 98%;
+    --sidebar-border: 15 25% 18%;
+    --sidebar-ring: 142 52% 58%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', system-ui, sans-serif;
+    @apply font-semibold tracking-tight;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-br from-primary to-secondary bg-clip-text text-transparent;
+  }
+}
+
+@layer components {
+  /* Beautiful component styles */
+  .card-gradient {
+    background: var(--gradient-card);
+    box-shadow: var(--shadow-soft);
+    @apply backdrop-blur-sm;
+  }
+
+  .btn-gradient-primary {
+    background: var(--gradient-primary);
+    box-shadow: var(--shadow-medium);
+    @apply text-white border-0 hover:shadow-lg transition-all duration-300;
+  }
+
+  .btn-gradient-secondary {
+    background: var(--gradient-secondary);
+    box-shadow: var(--shadow-medium);
+    @apply text-white border-0 hover:shadow-lg transition-all duration-300;
+  }
+
+  .glass-card {
+    @apply backdrop-blur-md bg-white/80 dark:bg-gray-900/80 border border-white/20 dark:border-gray-800/20;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite alternate;
+  }
+
+  .text-shadow {
+    text-shadow: 0 2px 4px hsl(222 84% 4.9% / 0.1);
+  }
+}
+
+@layer utilities {
+  .shadow-soft { box-shadow: var(--shadow-soft); }
+  .shadow-medium { box-shadow: var(--shadow-medium); }
+  .shadow-large { box-shadow: var(--shadow-large); }
+  .shadow-glow { box-shadow: var(--shadow-glow); }
+}
+
+/* Beautiful animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes pulse-glow {
+  0% { box-shadow: 0 0 5px hsl(var(--primary) / 0.3); }
+  100% { box-shadow: 0 0 20px hsl(var(--primary) / 0.6); }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-muted;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary/60 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary/80;
+}
