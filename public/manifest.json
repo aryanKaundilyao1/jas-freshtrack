@@ -1,6 +1,6 @@
 {
-  "name": "FoodFriend AI - Smart Food Expiry Tracker",
-  "short_name": "FoodFriend",
+  "name": "JAS FreshTrack - Track Freshness. Reduce Waste. Maximize value.",
+  "short_name": "JAS FreshTrack",
   "description": "Never waste food again with AI-powered recipe suggestions and expiry alerts",
   "start_url": "/",
   "display": "standalone",

@@ -1,6 +1,7 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 
 Deno.serve(async (req) => {
+  console.log("FUNCTION CALLED");
   const { expiringItems } = await req.json();
 
   const openaiKey = Deno.env.get("OPENAI_API_KEY");

@@ -40,7 +40,6 @@ export default function CameraScanner({
 
 codeReader.current = new BrowserMultiFormatReader(hints);
 
-    // wait for video to load
     setTimeout(() => {
       codeReader.current!.decodeFromVideoElement(
         videoRef.current!,

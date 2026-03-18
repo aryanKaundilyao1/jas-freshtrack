@@ -208,12 +208,7 @@ export default function Recipes() {
                 ))}
               </div>
               
-                <Button
-  disabled
-  className="w-full sm:w-auto opacity-50 cursor-not-allowed"
->
-  🚧 AI Coming Soon
-</Button>
+                
             </div>
           )}
         </CardContent>

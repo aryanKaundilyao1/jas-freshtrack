@@ -2,7 +2,7 @@ import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'app.lovable.408fed40a3b84cb785da136aed4ea176',
-  appName: 'FoodFriend AI',
+  appName: 'JAS',
   webDir: 'dist',
   server: {
     url: 'https://408fed40-a3b8-4cb7-85da-136aed4ea176.lovableproject.com?forceHideBadge=true',

@@ -40,6 +40,33 @@ interface ProductData {
 }
 
 export default function Scan() {
+  const handleBarcode = async (code: string) => {
+  try {
+    console.log("Scanned:", code);
+
+    const res = await fetch(
+      `https://world.openfoodfacts.org/api/v0/product/${code}.json`
+    );
+
+    const data = await res.json();
+
+    if (data.status === 1) {
+      const product = data.product;
+
+      setFormData((prev: any) => ({
+        ...prev,
+        name: product.product_name || "",
+        brand: product.brands || "",
+        category: product.categories || "",
+      }));
+    } else {
+      alert("Product not found");
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Error fetching product");
+  }
+};
   const navigate = useNavigate();
   const { user } = useAuth();
   const [isScanning, setIsScanning] = useState(false);
@@ -55,93 +82,6 @@ export default function Scan() {
     purchaseDate: new Date().toISOString().split('T')[0],
     expiryDate: '',
   });
-
-  const handleBarcodeSearch = async () => {
-    if (!formData.barcode.trim()) {
-      toast({
-        title: "Enter a barcode",
-        description: "Please enter a barcode to search for product information.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    setIsScanning(true);
-    
-    try {
-      // First, check if we already have this product in our database
-      const { data: existingProduct } = await supabase
-        .from('products')
-        .select('*')
-        .eq('barcode', formData.barcode)
-        .single();
-
-      if (existingProduct) {
-        setProductData({
-          name: existingProduct.name,
-          brand: existingProduct.brand || '',
-          category: existingProduct.category || '',
-          barcode: existingProduct.barcode || '',
-        });
-        setFormData(prev => ({
-          ...prev,
-          name: existingProduct.name,
-          brand: existingProduct.brand || '',
-          category: existingProduct.category || '',
-        }));
-        toast({
-          title: "Product found!",
-          description: `Found ${existingProduct.name} in our database.`,
-        });
-        return;
-      }
-
-      // If not found locally, try Open Food Facts API
-      const response = await fetch(`https://world.openfoodfacts.org/api/v0/product/${formData.barcode}.json`);
-      const data = await response.json();
-
-      if (data.status === 1 && data.product) {
-        const product = data.product;
-        const productInfo = {
-          name: product.product_name || product.generic_name || `Product ${formData.barcode}`,
-          brand: product.brands || '',
-          category: product.categories_tags?.[0]?.replace(/^en:/, '') || '',
-          barcode: formData.barcode,
-        };
-
-        setProductData(productInfo);
-        setFormData(prev => ({
-          ...prev,
-          name: productInfo.name,
-          brand: productInfo.brand,
-          category: productInfo.category,
-        }));
-
-        toast({
-          title: "Product found!",
-          description: `Found ${productInfo.name} via barcode lookup.`,
-        });
-      } else {
-        toast({
-          title: "Product not found",
-          description: "Please enter product details manually.",
-        });
-        setFormData(prev => ({
-          ...prev,
-          name: `Product ${formData.barcode}`,
-        }));
-      }
-    } catch (error) {
-      console.error('Barcode lookup error:', error);
-      toast({
-        title: "Lookup failed",
-        description: "Could not lookup product. Please enter details manually.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsScanning(false);
-    }
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -299,8 +239,7 @@ export default function Scan() {
               <Button
                 type="button"
                 variant="outline"
-                onClick={handleBarcodeSearch}
-                disabled={isScanning}
+                onClick={() => handleBarcode(formData.barcode)}
               >
                 {isScanning ? (
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary" />
@@ -309,12 +248,12 @@ export default function Scan() {
                 )}
               </Button>
               <CameraScanner 
-                onBarcodeDetected={(barcode) => {
-                  setFormData(prev => ({ ...prev, barcode }));
-                  handleBarcodeSearch();
-                }}
-                disabled={isScanning}
-              />
+  onBarcodeDetected={(barcode) => {
+    console.log("Barcode detected:", barcode);
+    setFormData(prev => ({ ...prev, barcode }));
+    handleBarcode(barcode);
+  }}
+/>
             </div>
             {productData && (
               <Badge variant="secondary" className="mt-2">
